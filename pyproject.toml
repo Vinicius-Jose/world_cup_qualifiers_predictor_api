@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "world-cup-qualifiers-predictor-api"
+version = "0.1.0"
+description = ""
+authors = ["Vinícius José Pierri Nogueira <vinijosenog@hotmail.com>"]
+readme = "README.md"
+packages = [{include = "world_cup_qualifiers_predictor_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+torch = "^2.1.0"
+python-dotenv = "^1.0.0"
+pytest = "^7.4.2"
+djangorestframework = "^3.14.0"
+django-filter = "^23.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
