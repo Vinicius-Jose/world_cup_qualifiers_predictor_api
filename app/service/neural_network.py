@@ -1,6 +1,6 @@
-from torch import nn
+from torch import exp, nn
 from torch.utils.data import DataLoader
-from torch.optim import Optimizer, SGD
+from torch.optim import Optimizer, Adam
 import torch
 
 
@@ -20,9 +20,10 @@ class AI:
                 nn.Linear(in_features=2, out_features=hidden_layers),
                 nn.Linear(in_features=hidden_layers, out_features=3),
                 nn.Sigmoid(),
+                nn.Softmax(),
             )
         if not self.optimizer:
-            self.optimizer = SGD(self.module.parameters(), lr=0.01)
+            self.optimizer = Adam(self.module.parameters(), lr=0.001)
         if not self.criterion:
             self.criterion = nn.CrossEntropyLoss()
 
@@ -47,12 +48,12 @@ class AI:
         return result
 
     def save(self, save_path: str = "app/data/torch/teams_ai.chkpt") -> None:
-        torch.save(self.module, save_path)
+        torch.save(self.module.state_dict(), save_path)
 
     def load(self, save_path: str = "app/data/torch/teams_ai.chkpt") -> bool:
         load = False
         try:
-            state_dict = torch.load(self.save_path)
+            state_dict = torch.load(save_path)
             self.module.load_state_dict(state_dict)
             load = True
         except Exception as e:

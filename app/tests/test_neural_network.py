@@ -5,10 +5,10 @@ import torch
 
 TEAMS_LIST = (
     "Argentina",
-    "Bolívia",
+    "Bolivia",
     "Brasil",
     "Chile",
-    "Colômbia",
+    "Colombia",
     "Equador",
     "Paraguai",
     "Peru",
@@ -56,7 +56,7 @@ def load_data() -> DataLoader:
 def test_train_ai() -> None:
     data_loader = load_data()
     ai = AI()
-    total_loss = ai.train(epochs=EPOCHS, data_loader=data_loader)
+    total_loss = ai.train(epochs=20, data_loader=data_loader)
     ai.save()
     assert len(total_loss) != 0
 
@@ -64,10 +64,13 @@ def test_train_ai() -> None:
 def test_evaluate_ai() -> None:
     ai = AI()
     ai.load()
-    home_team = "Uruguai"
-    away_team = "Colômbia"
+    home_team = "Argentina"
+    away_team = "Peru"
     winner = "Empate"
-    game = [find_index(TEAMS_LIST, home_team), find_index(TEAMS_LIST, away_team)]
-    winner = find_index(game, find_index(TEAMS_LIST, winner))
+    game = [
+        find_index(TEAMS_LIST, home_team) + 1,
+        find_index(TEAMS_LIST, away_team) + 1,
+    ]
+    winner = find_index(game, find_index(TEAMS_LIST, winner) + 1)
     result = ai.evaluate(torch.tensor(game, dtype=torch.float32))
     assert len(result) == 3
