@@ -20,7 +20,7 @@ class AI:
                 nn.Linear(in_features=2, out_features=hidden_layers),
                 nn.Linear(in_features=hidden_layers, out_features=3),
                 nn.Sigmoid(),
-                nn.Softmax(),
+                nn.Softmax(dim=0),
             )
         if not self.optimizer:
             self.optimizer = Adam(self.module.parameters(), lr=0.001)

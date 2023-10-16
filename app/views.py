@@ -55,7 +55,7 @@ class PredictMatchViewSet(viewsets.ViewSet):
         ai = AI()
         total_loss = ai.train(epochs=20, data_loader=data_loader)
         ai.save(save_path="app/data/torch/teams_ai_api.chkpt")
-        dados_json = renderers.JSONRenderer().render({"loss": sum(total_loss)})
+        dados_json = renderers.JSONRenderer().render({"loss": int(sum(total_loss))})
         return Response(
             json.loads(dados_json), status=200, content_type="application/json"
         )
